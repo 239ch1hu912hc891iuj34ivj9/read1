@@ -7,7 +7,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load pre-trained image classification model
-model = keras.models.load_model("path_to_your_model")
+model = keras.models.load_model("model.h5")
 
 @app.route('/')
 def index():
