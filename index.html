@@ -9,7 +9,8 @@
 <body>
     <h1>Image Classification</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="file" multiple>
+        <input type="file" name="file" multiple accept="image/*">
+
         <button type="submit">Upload Images</button>
     </form>
 </body>
