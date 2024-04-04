@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request
-import tensorflow as tf
-from tensorflow import keras
 from PIL import Image
 import numpy as np
+import tensorflow as tf
 
 app = Flask(__name__)
 
-# Load pre-trained image classification model
-model = keras.models.load_model("model.h5")
+# Load pre-trained machine learning model
+model = tf.keras.models.load_model("model.h5")
+
 
 @app.route('/')
 def index():
@@ -15,19 +15,16 @@ def index():
 
 @app.route('/upload', methods=['POST'])
 def upload():
-    uploaded_files = request.files.getlist("file")
+    uploaded_files = request.files.getlist("file[]")
     results = []
-
     for file in uploaded_files:
-        img = Image.open(file).resize((224, 224))
+        img = Image.open(file)
+        img = img.convert('RGB')
+        img = img.resize((256, 256))
         img_array = np.array(img) / 255.0
         img_array = np.expand_dims(img_array, axis=0)
-        
         predictions = model.predict(img_array)
-        label = np.argmax(predictions)
-        confidence = np.max(predictions)
-        
-        results.append({'image': file.filename, 'label': label, 'confidence': confidence})
+        results.append((file.filename, predictions.tolist()[0]))
 
     return render_template('results.html', results=results)
 
