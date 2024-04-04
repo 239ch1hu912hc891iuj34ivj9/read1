@@ -2,24 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classification Results</title>
+    <title>Results</title>
 </head>
 <body>
-    <h1>Classification Results</h1>
+    <h1>Prediction Results</h1>
     <table>
         <tr>
             <th>Image</th>
-            <th>Label</th>
-            <th>Confidence</th>
+            <th>Prediction Probability</th>
         </tr>
-        {% for result in results %}
-            <tr>
-                <td>{{ result['image'] }}</td>
-                <td>{{ result['label'] }}</td>
-                <td>{{ result['confidence'] }}</td>
-            </tr>
+        {% for filename, result in results %}
+        <tr>
+            <td>{{ filename }}</td>
+            <td>{{ result }}</td>
+        </tr>
         {% endfor %}
     </table>
 </body>
